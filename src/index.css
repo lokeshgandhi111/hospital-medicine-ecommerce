@@ -4,29 +4,57 @@
 
 @layer base {
   body {
-    @apply bg-health-bg text-gray-900;
+    @apply bg-health-bg text-gray-900 antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
 @layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-glass rounded-2xl;
+  }
+  
   .btn-primary {
-    @apply bg-health-primary hover:bg-health-primary-dark text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg;
+    @apply bg-health-primary hover:bg-health-primary-dark text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-health-primary/20 hover:-translate-y-0.5 active:translate-y-0;
   }
   
   .btn-secondary {
-    @apply bg-health-secondary hover:bg-health-secondary-light text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg;
+    @apply bg-health-secondary hover:bg-health-secondary-light text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-health-secondary/20 hover:-translate-y-0.5 active:translate-y-0;
   }
   
-  .btn-accent {
-    @apply bg-health-accent-mint hover:bg-health-accent-coral text-white font-semibold py-2 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg;
+  .btn-outline {
+    @apply border-2 border-health-primary text-health-primary hover:bg-health-primary hover:text-white font-bold py-3 px-8 rounded-xl transition-all duration-300;
   }
   
-  .card {
-    @apply bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300;
+  .card-premium {
+    @apply bg-white rounded-2xl p-6 shadow-premium hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:-translate-y-2;
   }
   
-  .input-field {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-health-primary focus:border-transparent outline-none transition-all;
+  .input-modern {
+    @apply w-full px-5 py-3 bg-white border border-gray-200 rounded-xl focus:ring-4 focus:ring-health-primary/10 focus:border-health-primary outline-none transition-all duration-200 text-gray-700;
+  }
+  
+  .section-title {
+    @apply text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-health-primary to-health-secondary;
   }
 }
 
+/* Custom patterns and decorators */
+.bg-pattern {
+  background-image: radial-gradient(#2563EB10 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(13, 148, 136, 0.1) 100%);
+  filter: blur(80px);
+  border-radius: 50%;
+  z-index: -1;
+}

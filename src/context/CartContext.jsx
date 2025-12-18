@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const CartContext = createContext();
 
@@ -26,7 +26,7 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('medicineCart', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addToCart = (medicine) => {
+  const addToCart = useCallback((medicine) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find(item => item.id === medicine.id);
       if (existingItem) {
@@ -38,13 +38,13 @@ export const CartProvider = ({ children }) => {
       }
       return [...prevItems, { ...medicine, quantity: 1 }];
     });
-  };
+  }, []);
 
-  const removeFromCart = (id) => {
+  const removeFromCart = useCallback((id) => {
     setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
-  };
+  }, []);
 
-  const updateQuantity = (id, quantity) => {
+  const updateQuantity = useCallback((id, quantity) => {
     if (quantity <= 0) {
       removeFromCart(id);
       return;
@@ -54,19 +54,19 @@ export const CartProvider = ({ children }) => {
         item.id === id ? { ...item, quantity } : item
       )
     );
-  };
+  }, [removeFromCart]);
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     setCartItems([]);
-  };
+  }, []);
 
-  const getCartTotal = () => {
+  const getCartTotal = useCallback(() => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
+  }, [cartItems]);
 
-  const getCartItemCount = () => {
+  const getCartItemCount = useCallback(() => {
     return cartItems.reduce((count, item) => count + item.quantity, 0);
-  };
+  }, [cartItems]);
 
   const value = {
     cartItems,

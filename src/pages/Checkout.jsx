@@ -20,7 +20,7 @@ const Checkout = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const subtotal = useMemo(() => getCartTotal(), [cartItems, getCartTotal]);
+  const subtotal = useMemo(() => getCartTotal(), [getCartTotal]);
   const tax = useMemo(() => subtotal * 0.18, [subtotal]);
   const deliveryFee = useMemo(() => subtotal > 500 ? 0 : 50, [subtotal]);
   const total = useMemo(() => subtotal + tax + deliveryFee, [subtotal, tax, deliveryFee]);
