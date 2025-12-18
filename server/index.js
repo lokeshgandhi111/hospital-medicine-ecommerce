@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const connectDB = require("./config/db");
@@ -24,10 +25,14 @@ app.use("/api/medicines", medicineRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/prescriptions", prescriptionRoutes);
 
-// Test route
-app.get("/", (req, res) => {
-	res.send("Hospital Pharma API is running with MongoDB...");
-});
+// ✅ Serve Static Frontend Files (Production)
+// const frontendPath = path.join(__dirname, "../dist");
+// app.use(express.static(frontendPath));
+
+// // ✅ Handle React Router (SPA Fallback)
+// app.get("*", (req, res) => {
+// 	res.sendFile(path.join(frontendPath, "index.html"));
+// });
 
 // Connect DB & seed (ONLY IF EMPTY)
 connectDB().then(async () => {
