@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: hospital-medicine-ecommerce
+    env: node
+    buildCommand: npm run render-build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false # User will need to set this in the Render dashboard

@@ -10,6 +10,7 @@
     "build": "vite build",
     "start": "node server/index.js",
     "preview": "vite preview",
+    "render-build": "npm install && npm install --prefix server && npm run build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {

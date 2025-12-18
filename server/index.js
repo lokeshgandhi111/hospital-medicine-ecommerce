@@ -26,13 +26,14 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/prescriptions", prescriptionRoutes);
 
 // ✅ Serve Static Frontend Files (Production)
-// const frontendPath = path.join(__dirname, "../dist");
-// app.use(express.static(frontendPath));
+// ✅ Serve Static Frontend Files (Production)
+const frontendPath = path.join(__dirname, "../dist");
+app.use(express.static(frontendPath));
 
-// // ✅ Handle React Router (SPA Fallback)
-// app.get("*", (req, res) => {
-// 	res.sendFile(path.join(frontendPath, "index.html"));
-// });
+// ✅ Handle React Router (SPA Fallback)
+app.get(/.*/, (req, res) => {
+	res.sendFile(path.join(frontendPath, "index.html"));
+});
 
 // Connect DB & seed (ONLY IF EMPTY)
 connectDB().then(async () => {
