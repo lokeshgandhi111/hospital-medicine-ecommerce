@@ -28,10 +28,10 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = useCallback((medicine) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find(item => item.id === medicine.id);
+      const existingItem = prevItems.find(item => item._id === medicine._id);
       if (existingItem) {
         return prevItems.map(item =>
-          item.id === medicine.id
+          item._id === medicine._id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -41,7 +41,7 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   const removeFromCart = useCallback((id) => {
-    setCartItems((prevItems) => prevItems.filter(item => item.id !== id));
+    setCartItems((prevItems) => prevItems.filter(item => item._id !== id));
   }, []);
 
   const updateQuantity = useCallback((id, quantity) => {
@@ -51,7 +51,7 @@ export const CartProvider = ({ children }) => {
     }
     setCartItems((prevItems) =>
       prevItems.map(item =>
-        item.id === id ? { ...item, quantity } : item
+        item._id === id ? { ...item, quantity } : item
       )
     );
   }, [removeFromCart]);
