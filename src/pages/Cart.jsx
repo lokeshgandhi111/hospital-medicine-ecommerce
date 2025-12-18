@@ -3,6 +3,8 @@ import { useCart } from '../context/CartContext';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
+const BACKEND_URL = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : "http://localhost:5000";
+
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
 
@@ -49,7 +51,7 @@ const Cart = () => {
                   Items Ready for Checkout: {cartItems.length}
                 </p>
               </div>
-              <button 
+              <button
                 type="button"
                 onClick={clearCart}
                 className="text-xs font-black text-rose-500 hover:text-rose-600 transition-colors border-b-2 border-rose-100 pb-1"
@@ -60,28 +62,35 @@ const Cart = () => {
 
             <div className="space-y-6">
               {cartItems.map((item, i) => (
-                <div 
-                  key={item.id} 
+                <div
+                  key={item.id}
                   className="bg-white p-6 md:p-8 rounded-[2rem] shadow-glass border border-white hover:shadow-premium transition-all duration-300 animate-fade-in"
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
                   <div className="flex flex-col sm:flex-row gap-8 items-center">
                     {/* Visual */}
-                    <div className="w-32 h-32 bg-health-bg rounded-2xl flex items-center justify-center text-5xl flex-shrink-0 shadow-inner">
-                      {item.image}
+                    <div className="w-32 h-32 bg-health-bg rounded-2xl flex items-center justify-center overflow-hidden relative flex-shrink-0 shadow-inner">
+                      <img
+                        src={`${BACKEND_URL}/${encodeURI(item.image)}`}
+                        alt={item.name}
+                        className="h-full w-full object-contain"
+                        onError={(e) => {
+                          e.target.src = `${BACKEND_URL}/uploads/medicines/default.jpeg`;
+                        }}
+                      />
                     </div>
 
                     {/* Info */}
                     <div className="flex-1 space-y-2 text-center sm:text-left">
                       <div className="flex items-center justify-center sm:justify-start space-x-2">
-                         <span className="text-[10px] font-black text-health-secondary bg-health-secondary/5 px-2 py-0.5 rounded uppercase tracking-wider">
-                           {item.category}
-                         </span>
-                         {item.requiresPrescription && (
-                           <span className="text-[10px] font-black text-amber-600 bg-amber-50 px-2 py-0.5 rounded uppercase tracking-wider">
-                             RX Required
-                           </span>
-                         )}
+                        <span className="text-[10px] font-black text-health-secondary bg-health-secondary/5 px-2 py-0.5 rounded uppercase tracking-wider">
+                          {item.category}
+                        </span>
+                        {item.requiresPrescription && (
+                          <span className="text-[10px] font-black text-amber-600 bg-amber-50 px-2 py-0.5 rounded uppercase tracking-wider">
+                            RX Required
+                          </span>
+                        )}
                       </div>
                       <h3 className="text-xl font-black text-gray-900 leading-tight">{item.name}</h3>
                       <p className="text-xs text-gray-400 italic">By {item.manufacturer}</p>
@@ -90,7 +99,7 @@ const Cart = () => {
                     {/* Controls */}
                     <div className="flex flex-col items-center sm:items-end gap-6">
                       <div className="flex items-center bg-gray-50 p-1.5 rounded-xl border border-gray-100">
-                        <button 
+                        <button
                           type="button"
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           className="w-10 h-10 flex items-center justify-center bg-white rounded-lg shadow-sm hover:text-health-primary transition-colors disabled:opacity-50"
@@ -99,7 +108,7 @@ const Cart = () => {
                           <Minus className="w-4 h-4" />
                         </button>
                         <span className="w-12 text-center font-black text-lg">{item.quantity}</span>
-                        <button 
+                        <button
                           type="button"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           className="w-10 h-10 flex items-center justify-center bg-white rounded-lg shadow-sm hover:text-health-primary transition-colors"
@@ -109,7 +118,7 @@ const Cart = () => {
                       </div>
                       <div className="flex items-center space-x-6">
                         <p className="text-2xl font-black text-gray-900">₹{(item.price * item.quantity).toFixed(0)}</p>
-                        <button 
+                        <button
                           type="button"
                           onClick={() => removeFromCart(item.id)}
                           className="p-2 text-gray-300 hover:text-rose-500 transition-colors"
@@ -129,7 +138,7 @@ const Cart = () => {
             <div className="sticky top-32 space-y-6">
               <div className="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-premium border border-white">
                 <h3 className="text-2xl font-black mb-8">Order <span className="text-gradient">Summary</span></h3>
-                
+
                 <div className="space-y-5 mb-8">
                   <div className="flex justify-between items-center text-gray-500 font-bold uppercase text-xs tracking-[0.2em]">
                     <span>Subtotal</span>
@@ -173,12 +182,12 @@ const Cart = () => {
 
               {/* Promo Card */}
               <div className="bg-health-secondary/10 p-8 rounded-[2rem] border border-health-secondary/20 relative overflow-hidden">
-                 <div className="absolute top-0 right-0 p-4 text-4xl opacity-20">🎁</div>
-                 <h4 className="font-black text-health-secondary mb-2 uppercase tracking-widest text-xs">First Order Bonus</h4>
-                 <p className="text-sm font-bold text-health-secondary/80">
-                    Get extra 10% off on your first order. 
-                    Use code: <span className="bg-health-secondary text-white px-2 py-0.5 rounded-lg ml-1 font-black uppercase">FIRSTCARE</span>
-                 </p>
+                <div className="absolute top-0 right-0 p-4 text-4xl opacity-20">🎁</div>
+                <h4 className="font-black text-health-secondary mb-2 uppercase tracking-widest text-xs">First Order Bonus</h4>
+                <p className="text-sm font-bold text-health-secondary/80">
+                  Get extra 10% off on your first order.
+                  Use code: <span className="bg-health-secondary text-white px-2 py-0.5 rounded-lg ml-1 font-black uppercase">FIRSTCARE</span>
+                </p>
               </div>
             </div>
           </aside>

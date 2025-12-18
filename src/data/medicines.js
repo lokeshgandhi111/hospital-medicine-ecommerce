@@ -24,6 +24,8 @@ export const medicines = [
 		manufacturer: "HealthCare Labs",
 	},
 	{
+
+		
 		id: 3,
 		name: "Amoxicillin 250mg",
 		description:

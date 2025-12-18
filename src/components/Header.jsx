@@ -21,17 +21,14 @@ const Header = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Medicines', path: '/medicines' },
-    { name: 'Categories', path: '#' },
-    { name: 'Consultation', path: '#' },
   ];
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-white/90 backdrop-blur-lg shadow-glass py-3' 
-          : 'bg-transparent py-5'
-      }`}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+        ? 'bg-white/90 backdrop-blur-lg shadow-glass py-3'
+        : 'bg-transparent py-5'
+        }`}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between">
@@ -42,10 +39,7 @@ const Header = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-black text-gray-900 tracking-tight leading-none">
-                HOSPITAL<span className="text-health-primary">PHARMA</span>
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-health-secondary">
-                Healthcare Excellence
+                PHARMACY
               </span>
             </div>
           </Link>
@@ -56,14 +50,12 @@ const Header = () => {
               <Link
                 key={link.name}
                 to={link.path}
-                className={`text-sm font-bold tracking-wide transition-all duration-300 hover:text-health-primary relative group ${
-                  location.pathname === link.path ? 'text-health-primary' : 'text-gray-600'
-                }`}
+                className={`text-sm font-bold tracking-wide transition-all duration-300 hover:text-health-primary relative group ${location.pathname === link.path ? 'text-health-primary' : 'text-gray-600'
+                  }`}
               >
                 {link.name}
-                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-health-primary transition-all duration-300 group-hover:w-full ${
-                  location.pathname === link.path ? 'w-full' : ''
-                }`}></span>
+                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-health-primary transition-all duration-300 group-hover:w-full ${location.pathname === link.path ? 'w-full' : ''
+                  }`}></span>
               </Link>
             ))}
           </nav>
@@ -84,7 +76,7 @@ const Header = () => {
                 </span>
               )}
             </Link>
-            
+
             {/* Mobile Menu Toggle */}
             <button
               className="lg:hidden p-2.5 bg-gray-100 rounded-xl"
@@ -96,9 +88,8 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`lg:hidden overflow-hidden transition-all duration-500 ${
-          isMenuOpen ? 'max-h-96 mt-4 pb-4 opacity-100' : 'max-h-0 opacity-0'
-        }`}>
+        <div className={`lg:hidden overflow-hidden transition-all duration-500 ${isMenuOpen ? 'max-h-96 mt-4 pb-4 opacity-100' : 'max-h-0 opacity-0'
+          }`}>
           <div className="flex flex-col space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-100 shadow-xl">
             {navLinks.map((link) => (
               <Link

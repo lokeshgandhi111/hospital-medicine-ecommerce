@@ -2,7 +2,7 @@ import { ShoppingCart, AlertCircle, Plus, Info, CheckCircle2 } from "lucide-reac
 import { useCart } from "../context/CartContext";
 import { useState } from "react";
 
-const BACKEND_URL = "http://localhost:5000";
+const BACKEND_URL = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : "http://localhost:5000";
 
 const ProductCard = ({ medicine }) => {
   const { addToCart } = useCart();
@@ -45,9 +45,8 @@ const ProductCard = ({ medicine }) => {
           <img
             src={`${BACKEND_URL}/${encodeURI(medicine.image)}`}
             alt={medicine.name}
-            className={`h-full w-full object-contain transition-all duration-500 ${
-              isHovered ? "scale-110" : "scale-100"
-            }`}
+            className={`h-full w-full object-contain transition-all duration-500 ${isHovered ? "scale-110" : "scale-100"
+              }`}
             onError={(e) => {
               e.target.src = `${BACKEND_URL}/uploads/medicines/default.jpeg`;
             }}
@@ -55,9 +54,8 @@ const ProductCard = ({ medicine }) => {
 
           {/* Quick Action Overlay */}
           <div
-            className={`absolute inset-0 bg-health-primary/10 backdrop-blur-sm flex items-center justify-center transition-all duration-300 ${
-              isHovered ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute inset-0 bg-health-primary/10 backdrop-blur-sm flex items-center justify-center transition-all duration-300 ${isHovered ? "opacity-100" : "opacity-0"
+              }`}
           >
             <button
               onClick={handleAddToCart}
@@ -111,11 +109,10 @@ const ProductCard = ({ medicine }) => {
 
             <button
               onClick={handleAddToCart}
-              className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl font-black text-xs transition-all ${
-                medicine.requiresPrescription
+              className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl font-black text-xs transition-all ${medicine.requiresPrescription
                   ? "bg-gray-100 hooking text-gray-400 cursor-not-allowed"
                   : "bg-health-primary text-white hover:bg-health-primary-dark shadow-lg shadow-health-primary/20"
-              }`}
+                }`}
             >
               <ShoppingCart className="w-4 h-4" />
               <span>
@@ -128,11 +125,10 @@ const ProductCard = ({ medicine }) => {
 
       {/* Prescription Alert */}
       <div
-        className={`absolute left-0 right-0 bottom-4 px-4 transition-all duration-300 pointer-events-none z-20 ${
-          showPrescriptionAlert
+        className={`absolute left-0 right-0 bottom-4 px-4 transition-all duration-300 pointer-events-none z-20 ${showPrescriptionAlert
             ? "translate-y-0 opacity-100"
             : "translate-y-4 opacity-0"
-        }`}
+          }`}
       >
         <div className="bg-amber-500 text-white text-[10px] font-black p-3 rounded-xl shadow-2xl flex items-center justify-center space-x-2 border border-amber-400">
           <AlertCircle className="w-4 h-4" />
