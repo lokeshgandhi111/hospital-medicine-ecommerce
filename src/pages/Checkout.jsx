@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle, CreditCard, MapPin, Phone, Mail } from 'lucide-react';
+import { ArrowLeft, CreditCard, MapPin } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useMemo } from 'react';
 
@@ -54,13 +54,13 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
 
     setIsSubmitting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       clearCart();

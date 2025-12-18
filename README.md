@@ -30,47 +30,33 @@ A modern, user-friendly e-commerce platform for hospital medicine sales. This is
 
 ## Installation
 
-1. Install dependencies:
+1. Install dependencies for both frontend and backend:
 ```bash
 npm install
+cd server && npm install
+cd ..
 ```
 
-2. Start the development server:
+2. Start both frontend and backend in development mode:
 ```bash
 npm run dev
 ```
 
-3. Build for production:
-```bash
-npm run build
-```
+The frontend will run on `http://localhost:3000` and the backend on `http://localhost:5000`.
 
 ## Project Structure
 
 ```
-├── src/
-│   ├── components/       # Reusable UI components
-│   │   ├── Header.jsx
-│   │   ├── Footer.jsx
-│   │   ├── ProductCard.jsx
-│   │   └── ProductList.jsx
-│   ├── pages/           # Page components
-│   │   ├── Home.jsx
-│   │   ├── Medicines.jsx
-│   │   ├── Cart.jsx
-│   │   ├── Checkout.jsx
-│   │   └── OrderSuccess.jsx
+├── server/              # Node.js/Express backend
+│   ├── index.js         # Entry point and API routes
+│   └── package.json     # Backend dependencies
+├── src/                 # React frontend
+│   ├── api/             # API utility functions
+│   ├── components/      # Reusable UI components
 │   ├── context/         # React Context providers
-│   │   └── CartContext.jsx
-│   ├── data/            # Sample data
-│   │   └── medicines.js
+│   ├── pages/           # Page components
 │   ├── App.jsx          # Main app component
-│   ├── main.jsx         # Entry point
-│   └── index.css        # Global styles
-├── package.json
-├── vite.config.js
-├── tailwind.config.js
-└── README.md
+│   └── main.jsx         # Entry point
 ```
 
 ## Integration Notes

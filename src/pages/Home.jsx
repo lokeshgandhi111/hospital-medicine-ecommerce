@@ -1,10 +1,27 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { ArrowRight, Shield, Truck, Clock, Heart, Plus, Star, CheckCircle2 } from 'lucide-react';
-import { medicines } from '../data/medicines';
+import { fetchMedicines } from '../api/medicineApi';
 import ProductCard from '../components/ProductCard';
 
 const Home = () => {
-  const featuredMedicines = medicines.slice(0, 4);
+  const [featuredMedicines, setFeaturedMedicines] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getFeaturedMedicines = async () => {
+      try {
+        const data = await fetchMedicines();
+        setFeaturedMedicines(data.slice(0, 4));
+      } catch (err) {
+        console.error('Failed to load featured medicines');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getFeaturedMedicines();
+  }, []);
 
   return (
     <div className="overflow-hidden">
@@ -163,9 +180,19 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredMedicines.map((medicine) => (
-              <ProductCard key={medicine.id} medicine={medicine} />
-            ))}
+            {loading ? (
+              [1, 2, 3, 4].map((n) => (
+                <div key={n} className="bg-white p-6 rounded-2xl shadow-premium animate-pulse h-80">
+                  <div className="bg-gray-200 h-40 rounded-xl mb-4"></div>
+                  <div className="bg-gray-200 h-6 w-3/4 rounded mb-2"></div>
+                  <div className="bg-gray-200 h-4 w-1/2 rounded"></div>
+                </div>
+              ))
+            ) : (
+              featuredMedicines.map((medicine) => (
+                <ProductCard key={medicine.id} medicine={medicine} />
+              ))
+            )}
           </div>
         </div>
       </section>
