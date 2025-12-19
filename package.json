@@ -7,11 +7,8 @@
     "dev:frontend": "vite",
     "dev:backend": "npm run dev --prefix server",
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "build": "vite build",
-    "start": "node server/index.js",
-    "preview": "vite preview",
-    "render-build": "npm install && npm install --prefix server && npm run build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+    "build": "npm install && npm install --prefix server && vite build",
+    "start": "node server/index.js"
   },
   "dependencies": {
     "lucide-react": "^0.294.0",
