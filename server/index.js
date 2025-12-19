@@ -31,12 +31,14 @@ app.use("/api/test-bookings", testBookingRoutes);
 app.use("/api/labs", labRoutes);
 
 // ================================
-// 🔥 Serve React Frontend (Render)
+// 🔥 Serve React Frontend (SAFE)
 // ================================
 const __dirname1 = path.resolve();
+
 app.use(express.static(path.join(__dirname1, "dist")));
 
-app.get("/*", (req, res) => {
+// ✅ SAFE SPA fallback (NO wildcard routes)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname1, "dist", "index.html"));
 });
 
@@ -77,13 +79,10 @@ connectDB().then(async () => {
 
     await Lab.deleteMany({});
     console.log("🧹 Labs cleared");
-
-    // (your lab seeding logic remains unchanged)
   } catch (err) {
     console.error("❌ Seeding error:", err.message);
   }
 
-  // 🔥 LISTEN ONLY ONCE
   app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
   });
