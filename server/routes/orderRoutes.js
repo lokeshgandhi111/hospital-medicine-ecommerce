@@ -1,6 +1,7 @@
 const express = require("express");
 const Order = require("../models/Order");
 const Medicine = require("../models/Medicine");
+const { sendOrderReceipt } = require("../utils/emailService");
 
 const router = express.Router();
 
@@ -67,6 +68,11 @@ router.post("/", async (req, res) => {
 			prescriptionId: prescriptionId || undefined,
 		});
 
+		// Send email receipt
+		if (customer && customer.email) {
+			await sendOrderReceipt(order, customer.email);
+		}
+
 		res.status(201).json(order);
 	} catch (err) {
 		console.error("Error creating order:", err);
@@ -93,3 +99,4 @@ router.get("/:id", async (req, res) => {
 });
 
 module.exports = router;
+

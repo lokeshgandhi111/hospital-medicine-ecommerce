@@ -61,12 +61,44 @@ const Checkout = () => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const orderData = {
+        items: cartItems.map(item => ({
+          medicineId: item._id,
+          quantity: item.quantity
+        })),
+        customer: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          pincode: formData.pincode
+        },
+        paymentMethod: formData.paymentMethod
+      };
+
+      const response = await fetch('http://localhost:5000/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to place order');
+      }
+
       clearCart();
-      setIsSubmitting(false);
       navigate('/order-success');
-    }, 2000);
+    } catch (error) {
+      console.error('Order error:', error);
+      alert('Failed to place order. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (cartItems.length === 0) {

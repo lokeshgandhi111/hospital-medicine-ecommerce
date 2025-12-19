@@ -21,6 +21,7 @@ const Header = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Medicines', path: '/medicines' },
+    { name: 'Medical Tests', path: '/tests' },
   ];
 
   return (
@@ -35,7 +36,6 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="bg-gradient-to-br from-health-primary to-health-secondary p-2.5 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-              <Heart className="w-6 h-6 text-white fill-current" />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-black text-gray-900 tracking-tight leading-none">
