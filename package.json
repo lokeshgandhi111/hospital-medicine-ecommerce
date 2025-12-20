@@ -2,7 +2,6 @@
   "name": "hospital-medicine-ecommerce",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "build": "npm install && npm install --prefix server && vite build",
     "start": "node server/index.js",
