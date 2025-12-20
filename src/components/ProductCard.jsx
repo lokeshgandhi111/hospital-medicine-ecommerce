@@ -110,8 +110,8 @@ const ProductCard = ({ medicine }) => {
             <button
               onClick={handleAddToCart}
               className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl font-black text-xs transition-all ${medicine.requiresPrescription
-                  ? "bg-gray-100 hooking text-gray-400 cursor-not-allowed"
-                  : "bg-health-primary text-white hover:bg-health-primary-dark shadow-lg shadow-health-primary/20"
+                ? "bg-gray-100 hooking text-gray-400 cursor-not-allowed"
+                : "bg-health-primary text-white hover:bg-health-primary-dark shadow-lg shadow-health-primary/20"
                 }`}
             >
               <ShoppingCart className="w-4 h-4" />
@@ -126,8 +126,8 @@ const ProductCard = ({ medicine }) => {
       {/* Prescription Alert */}
       <div
         className={`absolute left-0 right-0 bottom-4 px-4 transition-all duration-300 pointer-events-none z-20 ${showPrescriptionAlert
-            ? "translate-y-0 opacity-100"
-            : "translate-y-4 opacity-0"
+          ? "translate-y-0 opacity-100"
+          : "translate-y-4 opacity-0"
           }`}
       >
         <div className="bg-amber-500 text-white text-[10px] font-black p-3 rounded-xl shadow-2xl flex items-center justify-center space-x-2 border border-amber-400">
